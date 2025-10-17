@@ -77,9 +77,17 @@ const DownloadSection = ({ username }: DownloadSectionProps) => {
 
   const handleDownload = async (file: any) => {
     try {
+      console.log('Tentando baixar arquivo:', {
+        file_path: file.file_path,
+        visibility: file.visibility,
+        file_id: file.id
+      });
+
       const { data, error } = await supabase.storage
         .from("shared-files")
         .download(file.file_path);
+
+      console.log('Resultado do download:', { data, error });
 
       if (error) throw error;
 
